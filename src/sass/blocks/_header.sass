@@ -22,11 +22,18 @@
 		text-transform: uppercase
 	// &__subtitle
 
+.menu
+	flex: 0 1 50%
+
 .nav
 	&__item
 		font-weight: 700
 		text-decoration: none
 		margin-left: 30px
 		color: $textcolor
+		cursor: pointer
+		transition: all 0.1s ease
+		&:hover
+			color: $accent
 		&:first-child
 			margin-left: 0

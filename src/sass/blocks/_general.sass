@@ -15,11 +15,36 @@
 	font-size: 20px
 	font-weight: 700
 	margin-bottom: 20px
+	&.center
+		text-align: center
 
 .subtitle
 	font-size: 16px
 	font-weight: 500
 	margin-bottom: 15px
+
+.error
+	color: red
+
+.find,
+.post
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	padding: 0 20px
+	height: 30px
+	border-radius: $border-radius-sm
+	text-decoration: none
+
+.find
+	border: 1px solid $gray
+	margin-right: 15px
+
+.post
+	background-color: $accent
+	color: $white
+	&:hover
+		color: $white
 
 .button
 	background-color: $accent
@@ -115,6 +140,7 @@ textarea
 	height: 200px
 
 a
+	color: $textcolor
 	transition: color .1s ease
 	&:hover
 		color: $accent
