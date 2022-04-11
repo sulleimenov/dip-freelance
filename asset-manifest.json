@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/dip-freelance/static/css/main.7afb2509.css",
+    "main.js": "/dip-freelance/static/js/main.92638b9f.js",
+    "static/media/avatar.svg": "/dip-freelance/static/media/avatar.95382fa280eaa676a43e059d1b365a77.svg",
+    "static/media/logo.svg": "/dip-freelance/static/media/logo.d1f73c50bd5bced606f5ba7c9307c4c4.svg",
+    "index.html": "/dip-freelance/index.html",
+    "static/media/back-hover.svg": "/dip-freelance/static/media/back-hover.003c57490699bae41bfb.svg",
+    "static/media/back.svg": "/dip-freelance/static/media/back.aa84633a9edbf601d6b4.svg",
+    "main.7afb2509.css.map": "/dip-freelance/static/css/main.7afb2509.css.map",
+    "main.92638b9f.js.map": "/dip-freelance/static/js/main.92638b9f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7afb2509.css",
+    "static/js/main.92638b9f.js"
+  ]
+}
