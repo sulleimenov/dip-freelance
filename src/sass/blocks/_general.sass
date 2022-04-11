@@ -1,0 +1,120 @@
+.box
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+	max-width: 1200px
+	min-height: 800px
+	background-color: $white
+	margin: 0 auto
+	border-radius: $border-radius
+	&__body
+		flex: 1 0 100%
+		padding: 30px 50px
+
+.title
+	font-size: 20px
+	font-weight: 700
+	margin-bottom: 20px
+
+.subtitle
+	font-size: 16px
+	font-weight: 500
+	margin-bottom: 15px
+
+.button
+	background-color: $accent
+	color: $white
+	font-weight: 500
+	border: none
+	border-radius: $border-radius-sm
+	padding: 0 22px
+	height: 38px
+	text-align: center
+	&.full
+		width: 100%
+
+.input
+	display: flex
+	flex-direction: column
+	margin-top: 20px
+	label
+		font-weight: 500
+		margin-bottom: 5px
+
+.text
+	margin-bottom: 15px
+	&:last-child
+		margin-bottom: 0
+
+.input-box
+	display: flex
+	justify-content: space-between
+	border: 1px solid #CCCDCA
+	border-radius: $border-radius-sm
+	overflow: hidden
+	&__contract
+		display: flex
+		align-items: center
+		column-gap: 7px
+		padding: 0 15px
+		border-right: 1px solid #CCCDCA
+		height: 38px
+		&>label
+			margin-bottom: 0
+	input
+		flex: 1 100%
+		border-left: none
+		border: none
+		border-radius: 0
+	&__info
+		display: flex
+		flex: 1 0 100px
+		width: 100px
+		justify-content: center
+		align-items: center
+		column-gap: 7px
+		padding: 0 15px
+		border-left: 1px solid #CCCDCA
+		height: 38px
+
+.input-radio
+	display: flex
+	align-items: center
+	column-gap: 7px
+	label
+		margin-bottom: 0
+
+.rows
+	display: flex
+	column-gap: 25px
+
+.back
+	font-weight: 700
+	border: none
+	background-color: transparent
+	background-image: url(/assets/images/back.svg)
+	background-repeat: no-repeat
+	background-position: left center
+	padding-left: 24px
+	cursor: pointer
+	margin-bottom: 30px
+	transition: all 0.1s ease
+	&:hover
+		background-image: url(/assets/images/back-hover.svg)
+		color: $accent
+
+input,
+textarea
+	border: 1px solid #cccdca
+	border-radius: $border-radius-sm
+	height: 38px
+	padding: 0 15px
+
+textarea
+	padding: 15px
+	height: 200px
+
+a
+	transition: color .1s ease
+	&:hover
+		color: $accent
