@@ -1,7 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import api from './../../services/api/db'
+
 function Home() {
+	const [tasks, setTasks] = useState([])
+
+	useEffect(() => {
+		api
+			.get('/posts')
+			.then(function (response) {
+				setTasks(response.data)
+			})
+			.catch(function (error) {
+				console.log(error)
+			})
+	}, [])
+
 	return (
 		<div>
 			<div className="title">Фильтр заданий</div>
@@ -20,63 +35,21 @@ function Home() {
 				</div>
 			</div>
 			<div className="task-list">
-				<Link to="task" className="task-list__item">
-					<div className="task-list__title">
-						Решить задачки по Объектно-ориентированному программированию.Python
-					</div>
-					<div className="task-list__descr">
-						Решить прикрепленный файл в Jupiter Notebook до конца, основываясь на уже сделанных задачах. Подкорректировать уже сделанные задачи, если это необходимо...
-					</div>
-					<div className="task-list__info">
-						<div className="task-list__price">
-							5000 тенге
-						</div>
-						<div className="task-list__date">
-							Срок выполнения: 5 дней
-						</div>
-					</div>
-					<div className="task-list__published">
-						Опубликован день назад
-					</div>
-				</Link>
-				<Link to="task" className="task-list__item">
-					<div className="task-list__title">
-						Решить задачки по Объектно-ориентированному программированию.Python
-					</div>
-					<div className="task-list__descr">
-						Решить прикрепленный файл в Jupiter Notebook до конца, основываясь на уже сделанных задачах. Подкорректировать уже сделанные задачи, если это необходимо...
-					</div>
-					<div className="task-list__info">
-						<div className="task-list__price">
-							5000 тенге
-						</div>
-						<div className="task-list__date">
-							Срок выполнения: 5 дней
-						</div>
-					</div>
-					<div className="task-list__published">
-						Опубликован день назад
-					</div>
-				</Link>
-				<Link to="task" className="task-list__item">
-					<div className="task-list__title">
-						Решить задачки по Объектно-ориентированному программированию.Python
-					</div>
-					<div className="task-list__descr">
-						Решить прикрепленный файл в Jupiter Notebook до конца, основываясь на уже сделанных задачах. Подкорректировать уже сделанные задачи, если это необходимо...
-					</div>
-					<div className="task-list__info">
-						<div className="task-list__price">
-							5000 тенге
-						</div>
-						<div className="task-list__date">
-							Срок выполнения: 5 дней
-						</div>
-					</div>
-					<div className="task-list__published">
-						Опубликован день назад
-					</div>
-				</Link>
+				{tasks ? (
+					tasks.map((task) => (
+						<Link to={'task/' + task.id} className="task-list__item">
+							<div className="task-list__title">{task.title}</div>
+							<div className="task-list__descr">{task.description}</div>
+							<div className="task-list__info">
+								<div className="task-list__price">{task.price}</div>
+								<div className="task-list__date">{task.date}</div>
+							</div>
+							<div className="task-list__published">{task.published}</div>
+						</Link>
+					))
+				) : (
+					<div>Заданий нет</div>
+				)}
 			</div>
 		</div>
 	)

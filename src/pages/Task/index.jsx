@@ -1,7 +1,13 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
+
+import useAuth from './../../hooks/useAuth'
+
 import avatar from './../../assets/images/avatar.svg'
 
 function Task() {
+	const auth = useAuth()
+
 	return (
 		<div>
 			<button className="back">Назад</button>
@@ -53,7 +59,11 @@ function Task() {
 								<span>2022-04-03 09:30</span>
 							</div>
 						</div>
-						<button className="button full">Предложить услуги</button>
+						{auth.user ? (
+							<button className="button full">Предложить услуги</button>
+							) : (
+							<Link className="task__auth button full" to="/login">Авторизоваться</Link>
+						)}
 					</div>
 				</div>
 			</div>

@@ -13,7 +13,7 @@ function App() {
 			<div className="box__body">
 				<Routes>
 					<Route path="/" element={<Home />} />
-					<Route path="task" element={<Task />} />
+					<Route path="task/:id" element={<Task />} />
 					<Route path="register" element={<Register />} />
 					<Route path="login" element={<Login />} />
 					<Route path="create" element={<PostTask />} />
