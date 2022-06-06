@@ -11,6 +11,10 @@
 		flex: 1 0 100%
 		padding: 30px 50px
 
+.loading
+	padding-top: 30px
+	text-align: center
+
 .title
 	font-size: 20px
 	font-weight: 700
@@ -39,14 +43,23 @@
 .find
 	border: 1px solid $gray
 	margin-right: 15px
+	&:hover
+		background-color: #fafafa
+		color: $textcolor
 
 .post
 	background-color: $accent
 	color: $white
+	transition: background 0.1s ease
 	&:hover
 		color: $white
+		background-color: #6d9d31
 
 .button
+	display: inline-flex
+	align-items: center
+	justify-content: center
+	text-decoration: none
 	background-color: $accent
 	color: $white
 	font-weight: 500
@@ -61,6 +74,12 @@
 		color: #fff
 	&.full
 		width: 100%
+	&--white
+		background-color: #fafafa
+		color: $textcolor
+		&:hover
+			background-color: #f1efef
+			color: $textcolor
 
 .input
 	display: flex
@@ -148,3 +167,15 @@ a
 	transition: color .1s ease
 	&:hover
 		color: $accent
+
+.need-log
+	text-align: center
+	padding-top: 80px
+	&__message
+		font-weight: 700
+		font-size: 20px
+		margin-bottom: 30px
+	&__button
+		display: flex
+		justify-content: center
+		gap: 15px

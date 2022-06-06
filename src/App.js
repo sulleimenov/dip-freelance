@@ -1,9 +1,9 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from 'react-router-dom'
 
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from './components/Header'
+import Footer from './components/Footer'
 import './sass/app.sass'
-import { Home, Task, Register, Login, NotFound, PostTask } from "./pages";
+import { Home, Task, Register, Login, NotFound, PostTask } from './pages'
 
 function App() {
 	return (
@@ -22,8 +22,8 @@ function App() {
 			</div>
 
 			<Footer />
-	</div>
-	);
+		</div>
+	)
 }
 
-export default App;
+export default App

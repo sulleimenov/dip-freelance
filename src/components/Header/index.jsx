@@ -11,7 +11,6 @@ const Header = () => {
 		auth.logOut();
 		navigate("/login");
 	};
-	console.log(auth.user);
 	return (
 		<header className="header">
 			<div className="logo">
