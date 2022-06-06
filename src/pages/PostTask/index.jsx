@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 
 import useAuth from './../../hooks/useAuth'
 import api from './../../services/api/db'
+import { declOfNum, uuidv4 } from './../../utils'
 
 const PostTask = () => {
 	const auth = useAuth()
@@ -10,21 +11,28 @@ const PostTask = () => {
 	const tabs = ['Название', 'Описание', 'Бюджет', 'Публикация']
 
 	const [active, setActive] = useState(0)
-	const [tasks, setTasks] = useState([])
-	const [loading, setLoading] = useState(false)
+	const [task, setTask] = useState([])
 
-	useEffect(() => {
+	const handleSubmit = async (event) => {
 		api
-			.post('/tasks')
-			.then(function (response) {
-				setTasks(response.data)
-				setLoading(true)
+			.post('/tasks', {
+				id: uuidv4(),
+				author: `${auth.user.lastName} ${auth.user.firstName}`,
+				title: postTitle,
+				description: postDescr,
+				status: 1,
+				type: postType,
+				price: postPrice,
+				date: postDeadlines,
+				published: new Date().toLocaleDateString(),
+			})
+			.then((response) => {
+				console.log(response)
 			})
 			.catch(function (error) {
 				console.log(error)
 			})
-	}, [])
-
+	}
 	const [postTitle, setPostTitle] = useState('')
 	const [postDescr, setPostDescr] = useState('')
 	const [postDeadlines, setPostDeadlines] = useState('')
@@ -32,30 +40,7 @@ const PostTask = () => {
 	const [postPrice, setPostPrice] = useState('')
 	const [postType, setPostType] = useState('')
 
-	function changePostTitle(event) {
-		setPostTitle(event.target.value)
-	}
-	function changePostDescr(event) {
-		setPostDescr(event.target.value)
-	}
-	function changePostDeadlines(event) {
-		setPostDeadlines(event.target.value)
-	}
-	function changePostPrice(event) {
-		setPostPrice(event.target.value)
-	}
-	function next(params) {
-		setActive(params)
-	}
 
-	function declOfNum(number, titles) {
-		const cases = [2, 0, 1, 1, 1, 2]
-		return titles[
-			number % 100 > 4 && number % 100 < 20
-				? 2
-				: cases[number % 10 < 5 ? number % 10 : 5]
-		]
-	}
 	return auth.user ? (
 		<div className="create-task">
 			<div className="create-task__progress">
@@ -80,13 +65,15 @@ const PostTask = () => {
 						id="title"
 						type="text"
 						name="title"
-						onChange={changePostTitle}
+						onChange={(e) => {
+							setPostTitle(e.target.value)
+						}}
 					/>
 				</div>
 				<button
 					className="create-task__button button"
 					onClick={() => {
-						next(1)
+						setActive(1)
 					}}>
 					Далее
 				</button>
@@ -109,12 +96,14 @@ const PostTask = () => {
 						name="descr"
 						cols="10"
 						rows="10"
-						onChange={changePostDescr}></textarea>
+						onChange={(e) => {
+							setPostDescr(e.target.value)
+						}}></textarea>
 				</div>
 				<button
 					className="create-task__button button"
 					onClick={() => {
-						next(2)
+						setActive(2)
 					}}>
 					Далее
 				</button>
@@ -133,7 +122,9 @@ const PostTask = () => {
 							type="text"
 							name="time"
 							placeholder="Введите срок"
-							onChange={changePostDeadlines}
+							onChange={(e) => {
+								setPostDeadlines(e.target.value)
+							}}
 						/>
 						<div className="input-box__info">в днях</div>
 					</div>
@@ -159,7 +150,9 @@ const PostTask = () => {
 									? 'Стоимость работ согласовывается индивидуально'
 									: ''
 							}
-							onChange={changePostPrice}
+							onChange={(e) => {
+								setPostPrice(e.target.value)
+							}}
 							disabled={postContract}
 						/>
 						<div className="input-box__info">тенге</div>
@@ -192,7 +185,7 @@ const PostTask = () => {
 				<button
 					className="create-task__button button"
 					onClick={() => {
-						next(3)
+						setActive(3)
 					}}>
 					Далее
 				</button>
@@ -226,7 +219,9 @@ const PostTask = () => {
 						<div className="result__value">{postType}</div>
 					</div>
 				</div>
-				<button className="button">Разместить задание</button>
+				<button className="button" onClick={handleSubmit}>
+					Разместить задание
+				</button>
 			</div>
 		</div>
 	) : (
