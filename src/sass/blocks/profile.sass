@@ -1,0 +1,44 @@
+.profile
+	display: flex
+	column-gap: 10px
+	position: relative
+	&__button
+		display: flex
+		align-items: center
+		justify-content: center
+		width: 45px
+		height: 45px
+		cursor: pointer
+		border-radius: 50px
+		background-color: $green-ligth
+		position: relative
+		svg
+			cursor: pointer
+			width: 35px
+	&__button-count
+		position: absolute
+		font-size: 11px
+		color: red
+		transition: all .100s ease
+		&.hidden
+			opacity: 0
+			visibility: hidden
+	&__dropdown
+		display: flex
+		flex-direction: column
+		background-color: #ECF8DB
+		padding: 10px 20px
+		border-radius: $border-radius
+		position: absolute
+		top: 55px
+		right: -20px
+		min-width: 180px
+		transition: all .100s ease
+		transform: translateY(5px)
+		a
+			text-decoration: none
+			padding: 5px 0
+		&:not(.show)
+			opacity: 0
+			visibility: hidden
+			transform: translateY(0)

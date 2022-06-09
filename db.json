@@ -43,6 +43,28 @@
       "price": "20",
       "date": "3",
       "published": "09.06.2022"
+    },
+    {
+      "id": "0a4157ee-ae28-46d1-8985-4a53934cf459",
+      "author": "Suleimenov Asylkhan",
+      "title": "",
+      "description": "",
+      "status": 1,
+      "type": "",
+      "price": "",
+      "date": "",
+      "published": "09.06.2022"
+    },
+    {
+      "id": "abd62451-4601-4123-bffc-74eb18796347",
+      "author": "Suleimenov Asylkhan",
+      "title": "34",
+      "description": "334234",
+      "status": 1,
+      "type": "Заключение договора",
+      "price": "3",
+      "date": "3",
+      "published": "09.06.2022"
     }
   ]
 }
