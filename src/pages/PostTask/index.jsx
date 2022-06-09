@@ -8,10 +8,33 @@ import { declOfNum, uuidv4 } from './../../utils'
 const PostTask = () => {
 	const auth = useAuth()
 
-	const tabs = ['Название', 'Описание', 'Бюджет', 'Публикация']
-
+	const [tabs, setTabs] = useState([
+		{
+			title: 'Название',
+			complited: false,
+		},
+		{
+			title: 'Описание',
+			complited: false,
+		},
+		{
+			title: 'Бюджет',
+			complited: false,
+		},
+		{
+			title: 'Публикация',
+			complited: false,
+		},
+	])
 	const [active, setActive] = useState(0)
-	const [task, setTask] = useState([])
+	const [validate, setValidate] = useState(false)
+
+	const [postTitle, setPostTitle] = useState('')
+	const [postDescr, setPostDescr] = useState('')
+	const [postDeadlines, setPostDeadlines] = useState('')
+	const [postContract, setPostContract] = useState(false)
+	const [postPrice, setPostPrice] = useState('')
+	const [postType, setPostType] = useState('')
 
 	const handleSubmit = async (event) => {
 		api
@@ -27,29 +50,30 @@ const PostTask = () => {
 				published: new Date().toLocaleDateString(),
 			})
 			.then((response) => {
-				console.log(response)
+				alert('Задание добавлено!')
 			})
 			.catch(function (error) {
 				console.log(error)
 			})
 	}
-	const [postTitle, setPostTitle] = useState('')
-	const [postDescr, setPostDescr] = useState('')
-	const [postDeadlines, setPostDeadlines] = useState('')
-	const [postContract, setPostContract] = useState(false)
-	const [postPrice, setPostPrice] = useState('')
-	const [postType, setPostType] = useState('')
-
 
 	return auth.user ? (
 		<div className="create-task">
 			<div className="create-task__progress">
 				{tabs.map((tab, index) => (
 					<span
-						className={active === index ? 'active' : ''}
+						className={
+							active === index
+								? 'active'
+								: '' || tab.complited
+								? 'complited'
+								: ''
+						}
 						key={index}
-						onClick={() => setActive(index)}>
-						{tab}
+						onClick={(e) =>
+							e.target.className == 'complited' ? setActive(index) : ''
+						}>
+						{tab.title}
 					</span>
 				))}
 			</div>
@@ -74,6 +98,14 @@ const PostTask = () => {
 					className="create-task__button button"
 					onClick={() => {
 						setActive(1)
+						setTabs(
+							tabs.map((tab) =>
+								tab.title == 'Название' || tab.title == 'Описание'
+									? { ...tab, complited: true }
+									: tab
+							)
+						)
+
 					}}>
 					Далее
 				</button>
@@ -104,6 +136,13 @@ const PostTask = () => {
 					className="create-task__button button"
 					onClick={() => {
 						setActive(2)
+						setTabs(
+							tabs.map((tab) =>
+								tab.title == 'Описание' || tab.title == 'Бюджет'
+									? { ...tab, complited: true }
+									: tab
+							)
+						)
 					}}>
 					Далее
 				</button>
@@ -186,6 +225,13 @@ const PostTask = () => {
 					className="create-task__button button"
 					onClick={() => {
 						setActive(3)
+						setTabs(
+							tabs.map((tab) =>
+								tab.title == 'Бюджет' || tab.title == 'Публикация'
+									? { ...tab, complited: true }
+									: tab
+							)
+						)
 					}}>
 					Далее
 				</button>

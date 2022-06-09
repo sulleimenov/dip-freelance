@@ -5,6 +5,7 @@ import useAuth from './../../hooks/useAuth'
 import api from './../../services/api/db'
 
 import avatar from './../../assets/images/avatar.svg'
+import Loading from '../../components/Loading'
 
 function Task() {
 	const auth = useAuth()
@@ -93,7 +94,7 @@ function Task() {
 					</div>
 				</div>
 			) : (
-				<div className="loading">Загрузка...</div>
+				<Loading />
 			)}
 		</div>
 	)

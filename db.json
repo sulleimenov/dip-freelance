@@ -32,6 +32,17 @@
       "price": 7000,
       "date": 7,
       "published": "2022-04-03"
+    },
+    {
+      "id": "4728ad11-bf04-46f5-92ce-9a5ae0ff22f0",
+      "author": "Suleimenov Asylkhan",
+      "title": "Программа",
+      "description": "Задача",
+      "status": 1,
+      "type": "Заключение договора",
+      "price": "20",
+      "date": "3",
+      "published": "09.06.2022"
     }
   ]
 }
