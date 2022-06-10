@@ -44,9 +44,9 @@ function Login() {
 		<div>
 			<form className='form' onSubmit={handleSubmit(onSubmit)}>
 				<div className="title center">Вход</div>
-				<input {...register("email", { required: true })} />
+				<input {...register("email", { required: true })} autoComplete="off" />
 				<p className='error'>{errors.email?.message}</p>
-				<input type='password' {...register("password", { required: true })} />
+				<input type='password' {...register("password", { required: true })} autoComplete="off" />
 				<p className='error'>{errors.password?.message}</p>
 				<input className='button' type="submit" />
 				<div className="register">

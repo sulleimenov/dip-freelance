@@ -5,6 +5,8 @@
 	padding: 30px 0
 	border-bottom: 1px solid $green-ligth
 	padding: 30px 50px
+	@include media-breakpoint-down(md)
+		padding: 30px 15px
 
 .logo
 	display: flex
@@ -23,7 +25,13 @@
 	// &__subtitle
 
 .menu
+	display: flex
 	flex: 0 1 50%
+	column-gap: 10px
+	@include media-breakpoint-down(lg)
+		flex: 0 1 100%
+		display: none
+
 
 .nav
 	&__item

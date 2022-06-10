@@ -41,6 +41,8 @@ const PostTask = () => {
 			.post('/tasks', {
 				id: uuidv4(),
 				author: `${auth.user.lastName} ${auth.user.firstName}`,
+				author_id: auth.user.id,
+				email: auth.user.email,
 				title: postTitle,
 				description: postDescr,
 				status: 1,
@@ -105,7 +107,6 @@ const PostTask = () => {
 									: tab
 							)
 						)
-
 					}}>
 					Далее
 				</button>
@@ -160,6 +161,7 @@ const PostTask = () => {
 							id="time"
 							type="text"
 							name="time"
+							autoComplete="off"
 							placeholder="Введите срок"
 							onChange={(e) => {
 								setPostDeadlines(e.target.value)
@@ -176,6 +178,7 @@ const PostTask = () => {
 								type="checkbox"
 								name="contract"
 								id="contract"
+								autoComplete="off"
 								onClick={() => setPostContract(!postContract)}
 							/>
 							<label htmlFor="contract">Договорная</label>
@@ -184,6 +187,7 @@ const PostTask = () => {
 							id="time"
 							type="text"
 							name="time"
+							autoComplete="off"
 							placeholder={
 								postContract
 									? 'Стоимость работ согласовывается индивидуально'

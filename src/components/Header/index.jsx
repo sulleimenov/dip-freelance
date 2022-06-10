@@ -27,10 +27,10 @@ const Header = () => {
 				</div>
 			</div>
 			<div className="menu">
-				<Link className="find" to="/">
+				<Link className="button button--white" to="/">
 					Найти работу
 				</Link>
-				<Link className="post" to="create">
+				<Link className="button" to="create">
 					Разместить задание
 				</Link>
 			</div>
@@ -57,6 +57,10 @@ const Header = () => {
 						<div className={`profile__dropdown ${profile ? 'show' : ''}`}>
 							<Link to="/profile" className="profile__item">
 								Профиль
+							</Link>
+							<Link to="/candidate" className="profile__item">
+								Задания
+								<span>5</span>
 							</Link>
 							<Link to="/profile" className="profile__item" onClick={onLogOut}>
 								Выйти из аккаунта

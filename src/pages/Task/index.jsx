@@ -6,11 +6,17 @@ import api from './../../services/api/db'
 
 import avatar from './../../assets/images/avatar.svg'
 import Loading from '../../components/Loading'
+import { uuidv2 } from './../../utils'
 
 function Task() {
 	const auth = useAuth()
 	const [task, setTask] = useState([])
+	const [answer, setAnswer] = useState(false)
 	const [loaded, setLoaded] = useState(false)
+	const [answerPrice, setAnswerPrice] = useState('')
+	const [answerDeadline, setAnswerDeadline] = useState('')
+	const [answerMessage, setAnswerMessage] = useState('')
+	const [answerSuccess, setAnswerSuccess] = useState(false)
 	let back = useNavigate()
 
 	let { id } = useParams()
@@ -26,6 +32,26 @@ function Task() {
 				console.log(error)
 			})
 	}, [])
+
+	const handleSubmit = async (event) => {
+		api
+			.post('/tender', {
+				id: uuidv2(),
+				task_id: task.id,
+				author_id: task.author_id,
+				author_email: task.email,
+				offer_price: answerPrice,
+				offer_deadline: answerDeadline,
+				message: answerMessage,
+			})
+			.then((response) => {
+				setAnswerSuccess(true)
+			})
+			.catch(function (error) {
+				console.log(error)
+			})
+		setAnswer(false)
+	}
 
 	function declOfNum(number, titles) {
 		const cases = [2, 0, 1, 1, 1, 2]
@@ -59,7 +85,61 @@ function Task() {
 						<div className="task__about">
 							<div className="title">{task.title}</div>
 							<div className="subtitle">Задача</div>
-							<div className="task__descr">{task.description} </div>
+							<div className="task__descr">{task.description}</div>
+							{answer ? (
+								<div className="task__answer">
+									<div className="title">Мое коммерческое предложение</div>
+									<div className="task__answer-price">
+										<div class="input">
+											<label for="title">Стоимость</label>
+											<input
+												id="title"
+												type="text"
+												name="title"
+												onChange={(e) => {
+													setAnswerPrice(e.target.value)
+												}}
+											/>
+										</div>
+									</div>
+									<div className="task__answer-deadline">
+										<div class="input">
+											<label for="title">Выполню за</label>
+											<input
+												id="title"
+												type="text"
+												name="title"
+												placeholder="в днях"
+												onChange={(e) => {
+													setAnswerDeadline(e.target.value)
+												}}
+											/>
+										</div>
+									</div>
+									<div className="task__answer-message">
+										<div class="input">
+											<label for="title">Текст предложения</label>
+											<textarea
+												id="title"
+												type="text"
+												name="title"
+												onChange={(e) => {
+													setAnswerMessage(e.target.value)
+												}}
+											/>
+										</div>
+									</div>
+									<br />
+									<button className="button" onClick={handleSubmit}>
+										Отправить
+									</button>
+								</div>
+							) : (
+								''
+							)}
+							{
+								answerSuccess ? 'ok' : ''
+							}
 						</div>
 						<div className="task__info">
 							<div className="subtitle">Информация по заданию</div>
@@ -84,7 +164,13 @@ function Task() {
 								</div>
 							</div>
 							{auth.user ? (
-								<button className="button full">Предложить услуги</button>
+								<button
+									className="button full"
+									onClick={() => {
+										setAnswer(!answer)
+									}}>
+									Предложить услуги
+								</button>
 							) : (
 								<Link className="task__auth button full" to="/login">
 									Авторизоваться

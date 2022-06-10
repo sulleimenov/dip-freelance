@@ -26,7 +26,7 @@ function Home() {
 
 	useEffect(() => {
 		api
-			.get('/tasks')
+			.get('/tasks1')
 			.then(function (response) {
 				setTasks(response.data)
 				setLoading(true)
@@ -38,7 +38,7 @@ function Home() {
 
 	return (
 		<div>
-			<div className="title">Фильтр заданий</div>
+			<div className="title">Фильтр</div>
 			<div className="filter">
 				<div className="filter__input">
 					<label htmlFor="word">Ключевые слова</label>
@@ -50,7 +50,7 @@ function Home() {
 						onChange={(event) => setSearchValue(event.target.value)}
 					/>
 				</div>
-				<div className="filter__input">
+				{/* <div className="filter__input">
 					<label htmlFor="price_start">Оплата, от</label>
 					<input
 						id="price_start"
@@ -67,19 +67,25 @@ function Home() {
 						name="price_end"
 						autoComplete="off"
 					/>
-				</div>
+				</div> */}
 			</div>
 			<Tasks
 				tasks={currentTasks}
 				loading={loading}
 				filteredTasks={filteredTasks}
 			/>
-			<Pagination
-				paginate={paginate}
-				tasksPerPage={tasksPerPage}
-				totalTasks={tasks.length}
-				currentPage={currentPage}
-			/>
+			{
+				tasksPerPage <= tasks.length
+				?
+				<Pagination
+					paginate={paginate}
+					tasksPerPage={tasksPerPage}
+					totalTasks={tasks.length}
+					currentPage={currentPage}
+				/>
+				:
+				''
+			}
 		</div>
 	)
 }

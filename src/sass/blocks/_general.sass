@@ -7,9 +7,13 @@
 	background-color: $white
 	margin: 0 auto
 	border-radius: $border-radius
+	@include media-breakpoint-down(md)
+		border-radius: 0
 	&__body
 		flex: 1 0 100%
 		padding: 30px 50px
+		@include media-breakpoint-down(md)
+			padding: 30px 15px
 
 .title
 	font-size: 20px
@@ -121,6 +125,7 @@
 	&--white
 		background-color: #fafafa
 		color: $textcolor
+		border: 1px solid #f1efef
 		&:hover
 			background-color: #f1efef
 			color: $textcolor
