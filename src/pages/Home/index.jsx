@@ -26,7 +26,7 @@ function Home() {
 
 	useEffect(() => {
 		api
-			.get('/tasks1')
+			.get('/tasks')
 			.then(function (response) {
 				setTasks(response.data)
 				setLoading(true)

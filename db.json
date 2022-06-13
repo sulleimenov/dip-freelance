@@ -12,17 +12,30 @@
       "price": "20000",
       "date": "5",
       "published": "10.06.2022"
+    },
+    {
+      "id": "f61ac730-c3f6-46b4-9ccd-19bb6f7a011f",
+      "author": "Кузницов Андрей",
+      "author_id": 2847,
+      "email": "job_test1@mail.ru",
+      "title": "123",
+      "description": "123",
+      "status": 1,
+      "type": "По договоренности",
+      "price": "5000",
+      "date": "4",
+      "published": "13.06.2022"
     }
   ],
   "tender": [
     {
-      "id": "57ae82212",
-      "task_id": "68ae989a-5bac-4c68-8f3c-f1c7ec1822dc",
+      "id": "c0af02362",
+      "task_id": "f61ac730-c3f6-46b4-9ccd-19bb6f7a011f",
       "author_id": 2847,
       "author_email": "job_test1@mail.ru",
-      "offer_price": "15000",
-      "offer_deadline": "3",
-      "message": "Имеется большой опыт в ООП PHP, выполню задачу на отлично"
+      "offer_price": "4000",
+      "offer_deadline": "1",
+      "message": "Опыт имеется"
     }
   ]
 }

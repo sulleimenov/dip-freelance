@@ -11,6 +11,7 @@ import { uuidv2 } from './../../utils'
 function Task() {
 	const auth = useAuth()
 	const [task, setTask] = useState([])
+	const [tenders, setTenders] = useState([])
 	const [answer, setAnswer] = useState(false)
 	const [loaded, setLoaded] = useState(false)
 	const [answerPrice, setAnswerPrice] = useState('')
@@ -29,10 +30,26 @@ function Task() {
 				setLoaded(true)
 			})
 			.catch(function (error) {
+				setLoaded(false)
 				console.log(error)
 			})
 	}, [])
 
+	useEffect(() => {
+		api
+			.get(`/tender`)
+			.then(function (response) {
+				setTenders(response.data)
+				setLoaded(true)
+			})
+			.catch(function (error) {
+				setLoaded(false)
+				console.log(error)
+			})
+	}, [])
+
+	let status = tenders.find((tender) => tender.task_id === task.id)
+	
 	const handleSubmit = async (event) => {
 		api
 			.post('/tender', {
@@ -137,9 +154,7 @@ function Task() {
 							) : (
 								''
 							)}
-							{
-								answerSuccess ? 'ok' : ''
-							}
+							{answerSuccess ? 'ok' : ''}
 						</div>
 						<div className="task__info">
 							<div className="subtitle">Информация по заданию</div>
@@ -164,13 +179,20 @@ function Task() {
 								</div>
 							</div>
 							{auth.user ? (
-								<button
-									className="button full"
-									onClick={() => {
-										setAnswer(!answer)
-									}}>
-									Предложить услуги
-								</button>
+								status ? (
+									<button
+										className="button button_waiting full">
+										Ожидание
+									</button>
+								) : (
+									<button
+										className="button full"
+										onClick={() => {
+											setAnswer(!answer)
+										}}>
+										Предложить услуги
+									</button>
+								)
 							) : (
 								<Link className="task__auth button full" to="/login">
 									Авторизоваться

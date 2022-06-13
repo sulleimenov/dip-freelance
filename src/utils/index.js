@@ -12,7 +12,7 @@ export const uuidv2 = () =>
 		return v.toString(16)
 	})
 
-export let declOfNum = (number, titles) => {
+export const declOfNum = (number, titles) => {
 	const cases = [2, 0, 1, 1, 1, 2]
 	return titles[
 		number % 100 > 4 && number % 100 < 20
