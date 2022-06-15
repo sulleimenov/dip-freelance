@@ -1,35 +1,34 @@
-import React from 'react'
-import styles from './Candidate.module.sass'
+import React, { useEffect, useState } from 'react'
+
+import useAuth from './../../hooks/useAuth'
+import Answer from '../../components/Answer'
+import api from './../../services/api/db'
+import Loading from '../../components/Loading'
 
 const Candidate = () => {
-	return (
-		<div>
-			<div className="title">Задания</div>
-			<div className={styles.head}>
-				<div className={styles.head__item}>№</div>
-				<div className={styles.head__item}>ФИО</div>
-				<div className={styles.head__item}>Предлагаемая цена</div>
-				<div className={styles.head__item}>Срок выполнения</div>
-				<div className={styles.head__item}>Сообщение</div>
-			</div>
-			<div className={styles.list}>
-				<div className={styles.list__item}>
-					<div className={styles.list__column}>1</div>
-					<div className={styles.list__column}>Сулейменов Асыл</div>
-					<div className={styles.list__column}>5000</div>
-					<div className={styles.list__column}>4 дня</div>
-					<div className={styles.list__column}>Текст</div>
-				</div>
-				<div className={styles.list__item}>
-					<div className={styles.list__column}>2</div>
-					<div className={styles.list__column}>Сулейменов Асыл</div>
-					<div className={styles.list__column}>5000</div>
-					<div className={styles.list__column}>4 дня</div>
-					<div className={styles.list__column}>Текст</div>
-				</div>
-			</div>
-		</div>
-	)
+	const auth = useAuth()
+	const [tenders, setTenders] = useState([])
+	const [items, setItems] = useState([])
+	const [loaded, setLoaded] = useState(false)
+
+	useEffect(() => {
+		api
+			.get(`/tender`)
+			.then(function (response) {
+				setTenders(response.data)
+				setLoaded(true)
+			})
+			.catch(function (error) {
+				setLoaded(false)
+				console.log(error)
+			})
+	}, [])
+
+	useEffect(() => {
+		setItems(tenders.find((tender) => tender.author_id === auth.user.id))
+	}, [auth])
+
+	return loaded ? <Answer items={items} /> : <Loading />
 }
 
 export default Candidate
