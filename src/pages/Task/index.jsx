@@ -33,7 +33,7 @@ function Task() {
 				setLoaded(false)
 				console.log(error)
 			})
-	}, [])
+	}, [id])
 
 	useEffect(() => {
 		api
@@ -161,7 +161,7 @@ function Task() {
 							<div className="task__info-lists">
 								<div className="task__info-item">
 									<span>Статус рабочей области:</span>
-									<span>{task.status == 1 ? 'Поиск исполнителя' : ''}</span>
+									<span>{task.status === 1 ? 'Поиск исполнителя' : ''}</span>
 								</div>
 								<div className="task__info-item">
 									<span>Стоимость:</span>

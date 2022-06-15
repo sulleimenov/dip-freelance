@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import useAuth from './../../hooks/useAuth'
@@ -27,7 +27,7 @@ const PostTask = () => {
 		},
 	])
 	const [active, setActive] = useState(0)
-	const [validate, setValidate] = useState(false)
+	// const [validate, setValidate] = useState(false)
 
 	const [postTitle, setPostTitle] = useState('')
 	const [postDescr, setPostDescr] = useState('')
@@ -73,7 +73,7 @@ const PostTask = () => {
 						}
 						key={index}
 						onClick={(e) =>
-							e.target.className == 'complited' ? setActive(index) : ''
+							e.target.className === 'complited' ? setActive(index) : ''
 						}>
 						{tab.title}
 					</span>
@@ -102,7 +102,7 @@ const PostTask = () => {
 						setActive(1)
 						setTabs(
 							tabs.map((tab) =>
-								tab.title == 'Название' || tab.title == 'Описание'
+								tab.title === 'Название' || tab.title === 'Описание'
 									? { ...tab, complited: true }
 									: tab
 							)
@@ -139,7 +139,7 @@ const PostTask = () => {
 						setActive(2)
 						setTabs(
 							tabs.map((tab) =>
-								tab.title == 'Описание' || tab.title == 'Бюджет'
+								tab.title === 'Описание' || tab.title === 'Бюджет'
 									? { ...tab, complited: true }
 									: tab
 							)
@@ -231,7 +231,7 @@ const PostTask = () => {
 						setActive(3)
 						setTabs(
 							tabs.map((tab) =>
-								tab.title == 'Бюджет' || tab.title == 'Публикация'
+								tab.title === 'Бюджет' || tab.title === 'Публикация'
 									? { ...tab, complited: true }
 									: tab
 							)

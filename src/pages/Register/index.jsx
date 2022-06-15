@@ -51,7 +51,7 @@ const Register = () => {
 		}
 	}
 
-	return (
+	return isLoading ? (
 		<div>
 			<form className="form" onSubmit={handleSubmit(onSubmit)}>
 				<div className="title center">Регистрация</div>
@@ -79,6 +79,8 @@ const Register = () => {
 				<input className="button" type="submit" />
 			</form>
 		</div>
+	) : (
+		''
 	)
 }
 
