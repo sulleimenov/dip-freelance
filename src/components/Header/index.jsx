@@ -1,20 +1,30 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 import logo from './../../assets/images/logo.svg'
-import avatar from './../../assets/images/avatar.svg'
 import useAuth from './../../hooks/useAuth'
 
 const Header = () => {
 	const auth = useAuth()
 	const navigate = useNavigate()
 	const [profile, setProfile] = useState(false)
+	const profileRef = useRef()
 
 	const onLogOut = () => {
 		auth.logOut()
+		setProfile(false)
 		navigate('/login')
 	}
 
+	const handleOutsideClick = (e) => {
+		if (!e.path.includes(profileRef.current)) {
+			setProfile(false)
+		}
+	}
+
+	useEffect(() => {
+		document.body.addEventListener('click', handleOutsideClick)
+	}, [])
 	return (
 		<header className="header">
 			<div className="logo">
@@ -36,13 +46,17 @@ const Header = () => {
 			</div>
 			<div className="nav">
 				{auth.user ? (
-					<div className="profile">
+					<div className="profile" ref={profileRef}>
+						Привет, {auth.user.firstName}
 						<div
 							className="profile__button"
 							onClick={() => {
 								setProfile(!profile)
 							}}>
-							<span className={`profile__button-count ${profile ? 'hidden' : ''}`}>5</span>
+							{/* <span
+								className={`profile__button-count ${profile ? 'hidden' : ''}`}>
+								5
+							</span> */}
 							<svg
 								width="23"
 								height="24"
@@ -54,13 +68,15 @@ const Header = () => {
 									fill="#82B93C"></path>
 							</svg>
 						</div>
-						<div className={`profile__dropdown ${profile ? 'show' : ''}`}>
-							<Link to="/profile" className="profile__item">
-								Профиль
+						<div
+							className={`profile__dropdown ${profile ? 'show' : ''}`}>
+							<Link to="/candidate" className="profile__item" onClick={() => setProfile(false)}>
+								Исполнители
+								{/* <span>5</span> */}
 							</Link>
-							<Link to="/candidate" className="profile__item">
-								Задания
-								<span>5</span>
+							<Link to="/complete" className="profile__item" onClick={() => setProfile(false)}>
+								Задачи к выполнению
+								{/* <span>5</span> */}
 							</Link>
 							<Link to="/profile" className="profile__item" onClick={onLogOut}>
 								Выйти из аккаунта

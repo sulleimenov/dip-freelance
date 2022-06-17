@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
@@ -8,6 +8,7 @@ import useAuth from "../../hooks/useAuth";
 
 function Login() {
 	const [isLoading, setIsLoading] = useState(false);
+	const navigate = useNavigate();
 	const auth = useAuth();
 
 	const schema = yup.object().shape({
@@ -23,6 +24,7 @@ function Login() {
 		try {
 			setIsLoading(true);
 			const { data: loginData } = await api.auth.login(data);
+			navigate('/')
 
 			auth.setToken(loginData.token);
 			auth.setUser(loginData.user);

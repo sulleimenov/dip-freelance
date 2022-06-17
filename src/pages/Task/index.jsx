@@ -6,7 +6,7 @@ import api from './../../services/api/db'
 
 import avatar from './../../assets/images/avatar.svg'
 import Loading from '../../components/Loading'
-import { uuidv2 } from './../../utils'
+import { declOfNum, uuidv2 } from './../../utils'
 
 function Task() {
 	const auth = useAuth()
@@ -49,13 +49,22 @@ function Task() {
 	}, [])
 
 	let status = tenders.find((tender) => tender.task_id === task.id)
-	
+
 	const handleSubmit = async (event) => {
 		api
 			.post('/tender', {
 				id: uuidv2(),
 				task_id: task.id,
-				author_id: task.author_id,
+				author_id: auth.user.id,
+				executor: task.author_id,
+				title: task.title,
+				description: task.description,
+				price: task.price,
+				published: task.published,
+				type: task.type,
+				fio: `${auth.user.firstName} ${auth.user.lastName}`,
+				customer_fio: task.author,
+				customer_email: task.email,
 				author_email: task.email,
 				offer_price: answerPrice,
 				offer_deadline: answerDeadline,
@@ -68,15 +77,6 @@ function Task() {
 				console.log(error)
 			})
 		setAnswer(false)
-	}
-
-	function declOfNum(number, titles) {
-		const cases = [2, 0, 1, 1, 1, 2]
-		return titles[
-			number % 100 > 4 && number % 100 < 20
-				? 2
-				: cases[number % 10 < 5 ? number % 10 : 5]
-		]
 	}
 
 	return (
@@ -154,7 +154,13 @@ function Task() {
 							) : (
 								''
 							)}
-							{answerSuccess ? 'ok' : ''}
+							{answerSuccess ? (
+								<div className="success">
+									Ваша заявка успешно принята, ожидайте ответа заказчика
+								</div>
+							) : (
+								''
+							)}
 						</div>
 						<div className="task__info">
 							<div className="subtitle">Информация по заданию</div>
@@ -180,8 +186,7 @@ function Task() {
 							</div>
 							{auth.user ? (
 								status ? (
-									<button
-										className="button button_waiting full">
+									<button className="button button_waiting full">
 										Ожидание
 									</button>
 								) : (
