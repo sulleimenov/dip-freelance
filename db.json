@@ -12,11 +12,24 @@
       "price": "20000",
       "date": "5",
       "published": "10.06.2022"
+    },
+    {
+      "id": "1698e848-9e59-4e62-a0ee-57db8a1e0ac1",
+      "author": "Сулейменов Асыл",
+      "author_id": 2848,
+      "email": "job_test2@mail.ru",
+      "title": "Заголовок тест",
+      "description": "Описание....",
+      "status": 1,
+      "type": "Заключение договора",
+      "price": "5000",
+      "date": "7",
+      "published": "17.06.2022"
     }
   ],
   "tender": [
     {
-      "id": "74ad42b29",
+      "id": "66ab22fc0",
       "task_id": "68ae989a-5bac-4c68-8f3c-f1c7ec1822dc",
       "author_id": 2848,
       "executor": 2847,
@@ -29,10 +42,28 @@
       "customer_fio": "Кузницов Андрей",
       "customer_email": "job_test1@mail.ru",
       "author_email": "job_test1@mail.ru",
-      "offer_price": "5000",
+      "offer_price": "10000",
       "offer_deadline": "3",
-      "message": "Опыт",
+      "message": "Опыт имеется",
       "deal": 1
+    },
+    {
+      "id": "7b84a2932",
+      "task_id": "1698e848-9e59-4e62-a0ee-57db8a1e0ac1",
+      "author_id": 2847,
+      "executor": 2848,
+      "title": "Заголовок тест",
+      "description": "Описание....",
+      "price": "5000",
+      "published": "17.06.2022",
+      "type": "Заключение договора",
+      "fio": "Андрей Кузницов",
+      "customer_fio": "Сулейменов Асыл",
+      "customer_email": "job_test2@mail.ru",
+      "author_email": "job_test2@mail.ru",
+      "offer_price": "6",
+      "offer_deadline": "7",
+      "message": "4334"
     }
   ]
 }

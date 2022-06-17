@@ -41,8 +41,7 @@ const Complete = () => {
 			})
 	}, [])
 
-	const obj = { ...tasks, ...tenders }
-	console.log(obj)
+	
 
 	return (
 		<div>
