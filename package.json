@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "homepage": "https://sulleimenov.github.io/dip-freelance",
-	"engines": {
+  "engines": {
     "node": "17.x"
   },
   "dependencies": {
@@ -54,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "yarn-upgrade-all": "^0.7.1"
   }
 }
