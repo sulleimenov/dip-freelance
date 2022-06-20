@@ -8,17 +8,22 @@ const Header = () => {
 	const auth = useAuth()
 	const navigate = useNavigate()
 	const [profile, setProfile] = useState(false)
+	const [burger, setBurger] = useState(false)
 	const profileRef = useRef()
+	const burgerRef = useRef()
 
 	const onLogOut = () => {
 		auth.logOut()
 		setProfile(false)
-		navigate('/login')
+		navigate('/')
 	}
 
 	const handleOutsideClick = (e) => {
 		if (!e.path.includes(profileRef.current)) {
 			setProfile(false)
+		}
+		if (!e.path.includes(burgerRef.current)) {
+			setBurger(false)
 		}
 	}
 
@@ -53,10 +58,6 @@ const Header = () => {
 							onClick={() => {
 								setProfile(!profile)
 							}}>
-							{/* <span
-								className={`profile__button-count ${profile ? 'hidden' : ''}`}>
-								5
-							</span> */}
 							<svg
 								width="23"
 								height="24"
@@ -68,17 +69,20 @@ const Header = () => {
 									fill="#82B93C"></path>
 							</svg>
 						</div>
-						<div
-							className={`profile__dropdown ${profile ? 'show' : ''}`}>
-							<Link to="/candidate" className="profile__item" onClick={() => setProfile(false)}>
+						<div className={`profile__dropdown ${profile ? 'show' : ''}`}>
+							<Link
+								to="/candidate"
+								className="profile__item"
+								onClick={() => setProfile(false)}>
 								Исполнители
-								{/* <span>5</span> */}
 							</Link>
-							<Link to="/complete" className="profile__item" onClick={() => setProfile(false)}>
+							<Link
+								to="/complete"
+								className="profile__item"
+								onClick={() => setProfile(false)}>
 								Задачи к выполнению
-								{/* <span>5</span> */}
 							</Link>
-							<Link to="/profile" className="profile__item" onClick={onLogOut}>
+							<Link to="/" className="profile__item" onClick={onLogOut}>
 								Выйти из аккаунта
 							</Link>
 						</div>
@@ -88,6 +92,23 @@ const Header = () => {
 						Вход
 					</Link>
 				)}
+				<div className="burger-wrapper" ref={burgerRef}>
+					<div
+						className="burger"
+						onClick={() => {
+							setBurger(!burger)
+						}}>
+						<span></span>
+					</div>
+					<div className={`burger-dropdown ${burger ? 'show' : ''}`}>
+						<Link className="" to="/" onClick={() => setBurger(false)}>
+							Найти работу
+						</Link>
+						<Link className="" to="create" onClick={() => setBurger(false)}>
+							Разместить задание
+						</Link>
+					</div>
+				</div>
 			</div>
 		</header>
 	)

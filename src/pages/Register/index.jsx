@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -7,7 +8,10 @@ import useAuth from '../../hooks/useAuth'
 
 const Register = () => {
 	const [isLoading, setIsLoading] = useState(false)
+	const navigate = useNavigate()
 	const auth = useAuth()
+
+	const phoneRegExp = /^((\\[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
 
 	const schema = yup.object().shape({
 		email: yup
@@ -19,7 +23,7 @@ const Register = () => {
 			.min(6, 'Придумайте пароль от 6 символов')
 			.required('Введите пароль'),
 		firstName: yup.string().required('Введите своё имя'),
-		lastName: yup.string().required('Введите свою фамилию'),
+		lastName: yup.string().matches(phoneRegExp, 'Введите правильный телефон').required('Введите телефон')
 	})
 
 	const {
@@ -30,6 +34,7 @@ const Register = () => {
 	} = useForm({
 		resolver: yupResolver(schema),
 	})
+
 	const onSubmit = async (data) => {
 		try {
 			setIsLoading(true)
@@ -37,6 +42,7 @@ const Register = () => {
 			const { data: loginData } = await api.auth.login(data)
 			auth.setToken(loginData.token)
 			auth.setUser(loginData.user)
+			navigate('/thanks')
 		} catch (e) {
 			if (e.response.status === 422) {
 				Object.keys(e.response.data.errors).forEach((key) => {
@@ -50,8 +56,7 @@ const Register = () => {
 			setIsLoading(false)
 		}
 	}
-
-	return isLoading ? (
+	return (
 		<div>
 			<form className="form" onSubmit={handleSubmit(onSubmit)}>
 				<div className="title center">Регистрация</div>
@@ -67,7 +72,7 @@ const Register = () => {
 				<p className="error">{errors.firstName?.message}</p>
 				<input
 					{...register('lastName', { required: true })}
-					placeholder="Фамилия"
+					placeholder="Телефон"
 				/>
 				<p className="error">{errors.lastName?.message}</p>
 				<input
@@ -79,8 +84,6 @@ const Register = () => {
 				<input className="button" type="submit" />
 			</form>
 		</div>
-	) : (
-		''
 	)
 }
 

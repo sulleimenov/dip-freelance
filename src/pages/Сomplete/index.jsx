@@ -28,9 +28,11 @@ const Complete = () => {
 	// 		})
 	// }, [])
 
+	const userId = auth.user ? auth.user.id : ''
+	
 	useEffect(() => {
 		api
-			.get(`/tender?author_id=${auth.user.id}`)
+			.get(`/tender?author_id=${userId}`)
 			.then(function (response) {
 				setTenders(response.data)
 				setLoaded(true)
@@ -39,14 +41,12 @@ const Complete = () => {
 				setLoaded(false)
 				console.log(error)
 			})
-	}, [])
-
-	
+	}, [userId])
 
 	return (
 		<div>
 			<div className="title">Задание к выполнению</div>
-			{!tenders.length === 0 ? (
+			{tenders.length === 1 ? (
 				tenders.map((tender, index) => (
 					<div key={index}>
 						<div className={styles.info}>
@@ -64,11 +64,13 @@ const Complete = () => {
 						</div>
 						<div className={styles.deadline}>
 							<div className={styles.title}>Информация о заказчике</div>
-							<div className="text">ФИО: {tender.customer_fio}</div>
+							<div className="text">Имя: {tender.customer_fio}</div>
 							<div className="text">E-mail: {tender.customer_email}</div>
 							<div className="text">Телефон: {tender.phone}</div>
 							<a
-								href={`https://wa.me/87775559955?text=Здравствуйте, готов выполнить задание за ${
+								href={`https://wa.me/${
+									tender.phone
+								}?text=Здравствуйте, готов выполнить задание за ${
 									tender.offer_price
 								} тенге. Уложусь за ${tender.offer_deadline} ${declOfNum(
 									tender.offer_deadline,

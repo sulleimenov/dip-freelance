@@ -11,10 +11,7 @@ function Home() {
 	const [tasksPerPage, setPostsPerPage] = useState(5)
 
 	const [searchValue, setSearchValue] = useState('')
-
-	const filteredTasks = tasks.filter((task) => {
-		return task.title.toLowerCase().includes(searchValue.toLowerCase())
-	})
+	const search = searchValue ? `q=${searchValue}` : ''
 
 	const indexOfLastTask = currentPage * tasksPerPage
 	const indexOfFirstTask = indexOfLastTask - tasksPerPage
@@ -26,7 +23,7 @@ function Home() {
 
 	useEffect(() => {
 		api
-			.get('/tasks')
+			.get(`/tasks?${search}`)
 			.then(function (response) {
 				setTasks(response.data)
 				setLoading(true)
@@ -34,11 +31,11 @@ function Home() {
 			.catch(function (error) {
 				console.log(error)
 			})
-	}, [])
+	}, [searchValue])
 
 	return (
 		<div>
-			<div className="title">Фильтр</div>
+			<div className="title">Список заданий</div>
 			<div className="filter">
 				<div className="filter__input">
 					<label htmlFor="word">Ключевые слова</label>
@@ -46,6 +43,7 @@ function Home() {
 						id="word"
 						type="text"
 						name="word"
+						value={searchValue}
 						autoComplete="off"
 						onChange={(event) => setSearchValue(event.target.value)}
 					/>
@@ -69,23 +67,17 @@ function Home() {
 					/>
 				</div> */}
 			</div>
-			<Tasks
-				tasks={currentTasks}
-				loading={loading}
-				filteredTasks={filteredTasks}
-			/>
-			{
-				tasksPerPage <= tasks.length
-				?
+			<Tasks tasks={currentTasks} loading={loading} />
+			{tasksPerPage <= tasks.length ? (
 				<Pagination
 					paginate={paginate}
 					tasksPerPage={tasksPerPage}
 					totalTasks={tasks.length}
 					currentPage={currentPage}
 				/>
-				:
+			) : (
 				''
-			}
+			)}
 		</div>
 	)
 }

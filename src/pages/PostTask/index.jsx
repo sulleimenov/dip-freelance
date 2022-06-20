@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import useAuth from './../../hooks/useAuth'
 import api from './../../services/api/db'
@@ -27,7 +27,7 @@ const PostTask = () => {
 		},
 	])
 	const [active, setActive] = useState(0)
-	// const [validate, setValidate] = useState(false)
+	const navigate = useNavigate()
 
 	const [postTitle, setPostTitle] = useState('')
 	const [postDescr, setPostDescr] = useState('')
@@ -47,12 +47,12 @@ const PostTask = () => {
 				description: postDescr,
 				status: 1,
 				type: postType,
-				price: postPrice,
+				price: postContract ? 'Договорная' : postPrice,
 				date: postDeadlines,
 				published: new Date().toLocaleDateString(),
 			})
 			.then((response) => {
-				alert('Задание добавлено!')
+				navigate('/thanks-task')
 			})
 			.catch(function (error) {
 				console.log(error)

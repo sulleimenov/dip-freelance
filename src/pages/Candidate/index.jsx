@@ -12,9 +12,11 @@ const Candidate = () => {
 	const [tasks, setTasks] = useState([])
 	const [loaded, setLoaded] = useState(false)
 
+	const authId = auth.user ? auth.user.id : ''
+
 	useEffect(() => {
 		api
-			.get(`/tasks?author_id=${auth.user.id}`)
+			.get(`/tasks?author_id=${authId}`)
 			.then(function (response) {
 				setTasks(response.data)
 				setLoaded(true)
@@ -23,11 +25,11 @@ const Candidate = () => {
 				setLoaded(false)
 				console.log(error)
 			})
-	}, [])
+	}, [authId])
 
 	useEffect(() => {
 		api
-			.get(`/tender?executor=${auth.user.id}`)
+			.get(`/tender?executor=${authId}`)
 			.then(function (response) {
 				setTenders(response.data)
 				setLoaded(true)
@@ -36,7 +38,7 @@ const Candidate = () => {
 				setLoaded(false)
 				console.log(error)
 			})
-	}, [])
+	}, [authId])
 
 	const handleAccept = async (e) => {
 		let id = e.currentTarget.dataset.id;
@@ -59,7 +61,7 @@ const Candidate = () => {
 				<div>
 					<div className={styles.head}>
 						<div className={styles.head__item}>№</div>
-						<div className={styles.head__item}>ФИО</div>
+						<div className={styles.head__item}>Имя</div>
 						<div className={styles.head__item}>Предлагаемая цена</div>
 						<div className={styles.head__item}>Срок выполнения</div>
 						<div className={styles.head__item}>Сообщение</div>

@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import './sass/app.sass'
-import { Home, Profile, Task, Register, Login, NotFound, PostTask, Candidate, Сomplete } from './pages'
+import { Home, Profile, Task, Register, Login, NotFound, PostTask, Candidate, Сomplete, Thanks, PostTaskThanks } from './pages'
 
 function App() {
 	return (
@@ -20,6 +20,8 @@ function App() {
 					<Route path="register" element={<Register />} />
 					<Route path="login" element={<Login />} />
 					<Route path="create" element={<PostTask />} />
+					<Route path="thanks" element={<Thanks />} />
+					<Route path="thanks-task" element={<PostTaskThanks />} />
 					<Route path="*" element={<NotFound />} />
 				</Routes>
 			</div>

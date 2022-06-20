@@ -13,7 +13,7 @@ const Task = ({ tasks, loading, filteredTasks }) => {
 						<div className="task-list__title">{task.title}</div>
 						<div className="task-list__descr">{task.description}</div>
 						<div className="task-list__info">
-							<div className="task-list__price">{task.price} тенге</div>
+							<div className="task-list__price">{task.price} {task.price === 'Договорная' ? '' : 'тенге'}</div>
 							<div className="task-list__date">
 								Срок выполнения: {task.date} {declOfNum(task.date, ['день', 'дня', 'дней'])}
 							</div>

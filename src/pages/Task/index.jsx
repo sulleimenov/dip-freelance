@@ -49,7 +49,7 @@ function Task() {
 	}, [])
 
 	let status = tenders.find((tender) => tender.task_id === task.id)
-
+	
 	const handleSubmit = async (event) => {
 		api
 			.post('/tender', {
@@ -62,7 +62,8 @@ function Task() {
 				price: task.price,
 				published: task.published,
 				type: task.type,
-				fio: `${auth.user.firstName} ${auth.user.lastName}`,
+				fio: `${auth.user.firstName}`,
+				phone: `${auth.user.lastName}`,
 				customer_fio: task.author,
 				customer_email: task.email,
 				author_email: task.email,
@@ -93,9 +94,6 @@ function Task() {
 						</div>
 						<div className="task__author-text">
 							<div className="task__author-name">{task.author}</div>
-							<div className="task__author-registration">
-								Дата регистрации: 03.04.2022
-							</div>
 						</div>
 					</div>
 					<div className="task__about-box">
@@ -171,7 +169,7 @@ function Task() {
 								</div>
 								<div className="task__info-item">
 									<span>Стоимость:</span>
-									<span>{task.price} тенге</span>
+									<span>{task.price} {task.price === 'Договорная' ? '' : 'тенге'}</span>
 								</div>
 								<div className="task__info-item">
 									<span>Срок выполнения:</span>
